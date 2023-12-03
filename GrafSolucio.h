@@ -7,7 +7,7 @@ class GrafSolucio
 {
 public:
 	GrafSolucio() { m_numNodes = 0; m_numArestes = 0; }
-	GrafSolucio(const std::vector<CamiBase*>& camins); //AQUEST CONSTRUCTOR ÉS EL MÉS IMPORTANT
+	GrafSolucio(MapaBase* mapa); //AQUEST CONSTRUCTOR ÉS EL MÉS IMPORTANT
 	GrafSolucio(const std::vector<Coordinate>& nodes, const std::vector<std::vector<int>>& matriu_adj);
 	GrafSolucio(const std::vector<Coordinate>& nodes, const std::vector<std::vector<int>>& parelles_nodes, 
 		const std::vector<int>& pesos);

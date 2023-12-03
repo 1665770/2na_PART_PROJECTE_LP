@@ -16,26 +16,29 @@ bool jaEstaAlVector(const std::vector<Coordinate>& nodes, const Coordinate& c)
 }
 
 
-GrafSolucio::GrafSolucio(const std::vector<CamiBase*>& camins)
+GrafSolucio::GrafSolucio(MapaBase* mapa)
 {
-	std::vector<Coordinate> nodes;
+	std::vector<CamiBase*> camins;
+	mapa->getCamins(camins);
+
 	for (int i = 0; i < camins.size(); i++)
 	{
 		std::vector<Coordinate> temporal=camins[i]->getCamiCoords();
 		for (int i = 0; i < temporal.size(); i++)
-			if (!jaEstaAlVector(nodes,temporal[i]))
-				nodes.push_back(temporal[i]);
+			if (!jaEstaAlVector(m_nodes,temporal[i]))
+				m_nodes.push_back(temporal[i]);
 	}
 
 	m_numNodes = m_nodes.size();
 	m_matriuAdj.resize(m_numNodes, std::vector<int>(m_numNodes));
 	m_numArestes = m_numNodes * (m_numNodes - 1) / 2;
+
 	for (int i = 0; i < m_numNodes; i++)
 	{
 		for (int j = 0; j < m_numNodes; j++)
 		{
-			m_matriuAdj[i][j] = Util::DistanciaHaversine(nodes[i], nodes[j]);
-			m_matriuAdj[j][j] = Util::DistanciaHaversine(nodes[i], nodes[j]);
+			m_matriuAdj[i][j] = Util::DistanciaHaversine(m_nodes[i], m_nodes[j]);
+			m_matriuAdj[j][i] = Util::DistanciaHaversine(m_nodes[i], m_nodes[j]);
 		}
 	}
 
