@@ -1,4 +1,5 @@
 #include "BallTree.h"
+#include <limits> //CUIDAO!!!!
 
 void BallTree::construirArbre(const std::vector<Coordinate>& coordenades) 
 {
@@ -17,7 +18,7 @@ void BallTree::construirArbre(const std::vector<Coordinate>& coordenades)
     }
     m_radi = distanciesC[posPuntMesLlunyC];
 
-    if (m_coordenades.size() != 1)
+    if (m_coordenades.size() > 1)
     {
         Coordinate puntA;
         puntA.lat=m_coordenades[posPuntMesLlunyC].lat;
@@ -36,8 +37,8 @@ void BallTree::construirArbre(const std::vector<Coordinate>& coordenades)
                 puntB.lon = aux.lon;
             }
         }
-        std::vector<Coordinate> coordenadesA, coordenadesB;
-        for (size_t i = 0; i < m_coordenades.size(); i++)
+        std::vector<Coordinate> coordenadesA, coordenadesB; //ASSIGNEM CADA PUNT A UN BALLTREE FILL
+        for (size_t i = 0; i < m_coordenades.size(); i++) //SI EL PUNT ESTÀ MÉS A PROP DE 'A' QUE DE 'B', L'ASSIGNEM AL FILL ESQUERRE I AL REVÉS
         {
             if (Util::DistanciaHaversine(m_coordenades[i], puntA) < Util::DistanciaHaversine(m_coordenades[i], puntB))
                 coordenadesA.push_back(m_coordenades[i]);
@@ -83,9 +84,53 @@ void BallTree::postOrdre(std::vector<std::list<Coordinate>>& out)
     out.push_back(listCoordenades);
 }
 
-Coordinate BallTree::nodeMesProper(Coordinate targetQuery, Coordinate& Q, BallTree* ball) {
-    // TODO: TASCA 3
+
+
+Coordinate BallTree::nodeMesProper(Coordinate targetQuery, Coordinate& Q, BallTree* ball) 
+{
+    if (ball->m_root == nullptr)
+    {
+        Q.lat = 0;
+        Q.lon = 0;
+    }
+    double D1 = Util::DistanciaHaversine(targetQuery, ball->m_pivot);
+    double D2 = Util::DistanciaHaversine(Q, ball->m_pivot);
+    if ((D1 - ball->m_radi) >= D2)
+        return Q;
+    if (ball->m_left == nullptr && ball->m_right == nullptr)
+    {   
+        for (auto it = m_coordenades.begin(); it != m_coordenades.end(); it++)
+        {
+            if (Util::DistanciaHaversine(targetQuery, *it) < Util::DistanciaHaversine(targetQuery, Q))
+            {
+                Q.lat = (*it).lat;
+                Q.lon = (*it).lon;
+            }
+        }
+        return Q;
+    }
+    else
+    {
+        double Da = DBL_MAX; //AIXÒ ÉS PER ESTAR SEGUR QUE ALGÚN DELS DOS FILLS NO SIGUI NULLPTR
+        double Db = DBL_MAX; //AIXÒ ÉS PER ESTAR SEGUR QUE ALGÚN DELS DOS FILLS NO SIGUI NULLPTR
+        if (ball->m_left != nullptr) //AIXÒ ÉS PER ESTAR SEGUR QUE ALGÚN DELS DOS FILLS NO SIGUI NULLPTR
+            Da = Util::DistanciaHaversine(targetQuery, ball->m_left->m_pivot);
+        if (ball->m_right!=nullptr) //AIXÒ ÉS PER ESTAR SEGUR QUE ALGÚN DELS DOS FILLS NO SIGUI NULLPTR
+            Db = Util::DistanciaHaversine(targetQuery, ball->m_right->m_pivot);
+        if (Da < Db)
+        {
+            if (ball->m_left!=nullptr) //AIXÒ ÉS PER ESTAR SEGUR QUE ALGÚN DELS DOS FILLS NO SIGUI NULLPTR
+                nodeMesProper(targetQuery, Q, ball->m_left);
+            if (ball->m_right!=nullptr) //AIXÒ ÉS PER ESTAR SEGUR QUE ALGÚN DELS DOS FILLS NO SIGUI NULLPTR
+                nodeMesProper(targetQuery, Q, ball->m_right);
+        }
+        else
+        {
+            if (ball->m_right!=nullptr) //AIXÒ ÉS PER ESTAR SEGUR QUE ALGÚN DELS DOS FILLS NO SIGUI NULLPTR
+                nodeMesProper(targetQuery, Q, ball->m_right);
+            if (ball->m_left!=nullptr) //AIXÒ ÉS PER ESTAR SEGUR QUE ALGÚN DELS DOS FILLS NO SIGUI NULLPTR
+                nodeMesProper(targetQuery, Q, ball->m_left);
+        }
+    }
+    return Q;
 }
-
-
-

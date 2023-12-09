@@ -1,5 +1,7 @@
 #include "MapaSolucio.h"
 #include "Util.h" //!!
+#include "GrafSolucio.h"
+#include "BallTree.h"
 void MapaSolucio::reinciaVectors()
 {
 	while (!m_puntsDeInteres.empty())
@@ -152,4 +154,18 @@ void MapaSolucio::parsejaXmlElements(std::vector<XmlElement>& xmlElements)
 			}
 		}
 	}
+}
+
+CamiBase* MapaSolucio::buscaCamiMesCurt(PuntDeInteresBase* desde, PuntDeInteresBase* a)
+{
+	GrafSolucio graf(this);
+	BallTree bola;
+	bola.construirArbre(graf.getCoordenades());
+	Coordinate puntInici, puntFinal;
+	bola.nodeMesProper(desde->getCoord(), puntInici, &bola);
+	bola.nodeMesProper(a->getCoord(), puntFinal, &bola);
+	std::vector<Coordinate> coordenadesCami;
+	graf.camiMesCurt(puntInici, puntFinal, coordenadesCami);
+	CamiSolucio cami(coordenadesCami);
+	return &cami;
 }
