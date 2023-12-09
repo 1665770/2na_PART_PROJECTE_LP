@@ -1,0 +1,39 @@
+﻿  GrafSolucio.cpp
+C:\Users\andre\Desktop\AvaluadorProjecteLP\AvaluadorProjecteLP\GrafSolucio.cpp(23,20): warning C4018: '<': no coinciden signed/unsigned
+C:\Users\andre\Desktop\AvaluadorProjecteLP\AvaluadorProjecteLP\GrafSolucio.cpp(26,21): warning C4018: '<': no coinciden signed/unsigned
+C:\Users\andre\Desktop\AvaluadorProjecteLP\AvaluadorProjecteLP\GrafSolucio.cpp(35,20): warning C4018: '<': no coinciden signed/unsigned
+C:\Users\andre\Desktop\AvaluadorProjecteLP\AvaluadorProjecteLP\GrafSolucio.cpp(37,21): warning C4018: '<': no coinciden signed/unsigned
+C:\Users\andre\Desktop\AvaluadorProjecteLP\AvaluadorProjecteLP\GrafSolucio.cpp(63,20): warning C4018: '<': no coinciden signed/unsigned
+C:\Users\andre\Desktop\AvaluadorProjecteLP\AvaluadorProjecteLP\GrafSolucio.cpp(64,25): warning C4018: '<': no coinciden signed/unsigned
+C:\Users\andre\Desktop\AvaluadorProjecteLP\AvaluadorProjecteLP\GrafSolucio.cpp(87,28): warning C4244: 'argumento': conversión de 'const _Ty' a 'const unsigned int'; posible pérdida de datos
+          with
+          [
+              _Ty=double
+          ]
+C:\Users\andre\Desktop\AvaluadorProjecteLP\AvaluadorProjecteLP\GrafSolucio.cpp(87,44): warning C4244: 'argumento': conversión de 'const _Ty' a 'const unsigned int'; posible pérdida de datos
+          with
+          [
+              _Ty=double
+          ]
+C:\Users\andre\Desktop\AvaluadorProjecteLP\AvaluadorProjecteLP\GrafSolucio.cpp(88,28): warning C4244: 'argumento': conversión de 'const _Ty' a 'const unsigned int'; posible pérdida de datos
+          with
+          [
+              _Ty=double
+          ]
+C:\Users\andre\Desktop\AvaluadorProjecteLP\AvaluadorProjecteLP\GrafSolucio.cpp(88,44): warning C4244: 'argumento': conversión de 'const _Ty' a 'const unsigned int'; posible pérdida de datos
+          with
+          [
+              _Ty=double
+          ]
+C:\Users\andre\Desktop\AvaluadorProjecteLP\AvaluadorProjecteLP\GrafSolucio.cpp(103,20): warning C4018: '<': no coinciden signed/unsigned
+C:\Users\andre\Desktop\AvaluadorProjecteLP\AvaluadorProjecteLP\GrafSolucio.cpp(109,20): warning C4018: '<': no coinciden signed/unsigned
+C:\Users\andre\Desktop\AvaluadorProjecteLP\AvaluadorProjecteLP\GrafSolucio.cpp(111,21): warning C4018: '<': no coinciden signed/unsigned
+  MapaSolucio.cpp
+C:\Users\andre\Desktop\AvaluadorProjecteLP\AvaluadorProjecteLP\MapaSolucio.cpp(40,20): warning C4018: '<': no coinciden signed/unsigned
+C:\Users\andre\Desktop\AvaluadorProjecteLP\AvaluadorProjecteLP\MapaSolucio.cpp(53,22): warning C4018: '<': no coinciden signed/unsigned
+C:\Users\andre\Desktop\AvaluadorProjecteLP\AvaluadorProjecteLP\MapaSolucio.cpp(79,23): warning C4018: '<': no coinciden signed/unsigned
+C:\Users\andre\Desktop\AvaluadorProjecteLP\AvaluadorProjecteLP\MapaSolucio.cpp(102,22): warning C4018: '<': no coinciden signed/unsigned
+C:\Users\andre\Desktop\AvaluadorProjecteLP\AvaluadorProjecteLP\MapaSolucio.cpp(119,14): warning C4018: '<': no coinciden signed/unsigned
+C:\Users\andre\Desktop\AvaluadorProjecteLP\AvaluadorProjecteLP\MapaSolucio.cpp(127,25): warning C4018: '<': no coinciden signed/unsigned
+  Generando código...
+  AvaluadorProjecteLP.vcxproj -> C:\Users\andre\Desktop\AvaluadorProjecteLP\Debug\AvaluadorProjecteLP.exe
