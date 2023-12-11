@@ -84,6 +84,7 @@ GrafSolucio::GrafSolucio(MapaBase* mapa)
 		std::vector<Coordinate> temporal = camins[i]->getCamiCoords();
 		
 		for (int i = 0; i < temporal.size(); i++)
+		{
 			afegirNode(temporal[i]);
 			if (i > 0)
 			{
@@ -93,6 +94,7 @@ GrafSolucio::GrafSolucio(MapaBase* mapa)
 				size_t pos2 = std::distance(m_nodes.begin(), itNode2);
 				inserirAresta(pos1, pos2, Util::DistanciaHaversine(temporal[i], temporal[i - 1]));
 			}
+		}
 	}
 
 	/*m_numNodes = m_nodes.size();
@@ -164,7 +166,7 @@ void GrafSolucio::inserirAresta(int posNode1, int posNode2, double pes)
 
 void GrafSolucio::afegirNode(const Coordinate& node)
 {
-	if (!jaEstaAlVector)
+	if (!jaEstaAlVector(m_nodes, node))
 	{
 		m_nodes.push_back(node);
 		m_matriuAdj.push_back(std::vector<double>(m_numNodes));
