@@ -28,8 +28,8 @@ void GrafSolucio::dijkstra(size_t node, std::vector<double>& dist, std::vector<s
 		size_t posVeiAct = minDistance(dist, visitat);
 
 		visitat[posVeiAct] = true;
-		for (size_t posVei=0;posVei<m_numNodes;posVei++)
-			if (m_matriuAdj[posVeiAct][posVei]!=0)
+		for (size_t posVei = 0; posVei < m_numNodes; posVei++)
+			if (m_matriuAdj[posVeiAct][posVei] != 0)
 				if (!visitat[posVei])
 					if (dist[posVeiAct] + m_matriuAdj[posVeiAct][posVei] < dist[posVei])
 					{
@@ -42,7 +42,7 @@ void GrafSolucio::dijkstra(size_t node, std::vector<double>& dist, std::vector<s
 void GrafSolucio::camiMesCurt(const Coordinate node1, const Coordinate& node2, std::vector<Coordinate>& cami)
 {
 	std::vector<Coordinate>::iterator itNode1 = std::find(m_nodes.begin(), m_nodes.end(), node1);
-	std::vector<Coordinate>::iterator itNode2 = std::find(m_nodes.begin(), m_nodes.end(), node2); 
+	std::vector<Coordinate>::iterator itNode2 = std::find(m_nodes.begin(), m_nodes.end(), node2);
 	if ((itNode1 != m_nodes.end()) && (itNode2 != m_nodes.end()))
 	{
 		size_t pos1 = std::distance(m_nodes.begin(), itNode1);
@@ -81,13 +81,21 @@ GrafSolucio::GrafSolucio(MapaBase* mapa)
 
 	for (int i = 0; i < camins.size(); i++)
 	{
-		std::vector<Coordinate> temporal=camins[i]->getCamiCoords();
+		std::vector<Coordinate> temporal = camins[i]->getCamiCoords();
+		
 		for (int i = 0; i < temporal.size(); i++)
-			if (!jaEstaAlVector(m_nodes,temporal[i]))
-				m_nodes.push_back(temporal[i]);
+			afegirNode(temporal[i]);
+			if (i > 0)
+			{
+				std::vector<Coordinate>::iterator itNode1 = std::find(m_nodes.begin(), m_nodes.end(), temporal[i]);
+				size_t pos1 = std::distance(m_nodes.begin(), itNode1);
+				std::vector<Coordinate>::iterator itNode2 = std::find(m_nodes.begin(), m_nodes.end(), temporal[i - 1]);
+				size_t pos2 = std::distance(m_nodes.begin(), itNode2);
+				inserirAresta(pos1, pos2, Util::DistanciaHaversine(temporal[i], temporal[i - 1]));
+			}
 	}
 
-	m_numNodes = m_nodes.size();
+	/*m_numNodes = m_nodes.size();
 	m_matriuAdj.resize(m_numNodes, std::vector<double>(m_numNodes));
 	m_numArestes = m_numNodes * (m_numNodes - 1) / 2;
 
@@ -98,7 +106,7 @@ GrafSolucio::GrafSolucio(MapaBase* mapa)
 			m_matriuAdj[i][j] = Util::DistanciaHaversine(m_nodes[i], m_nodes[j]);
 			m_matriuAdj[j][i] = Util::DistanciaHaversine(m_nodes[i], m_nodes[j]);
 		}
-	}
+	}*/
 
 	//VERSIÓ ANTIGA
 	/*m_nodes = nodes;
@@ -120,7 +128,7 @@ GrafSolucio::GrafSolucio(const std::vector<Coordinate>& nodes, const std::vector
 	m_nodes = nodes;
 	m_matriuAdj = matriu_adj;
 	for (int i = 0; i < m_numNodes; i++)
-		for (int j = i+1; j < m_numNodes; j++)
+		for (int j = i + 1; j < m_numNodes; j++)
 			if (m_matriuAdj[i][j] != 0)
 				m_numArestes++;
 }
@@ -134,7 +142,7 @@ GrafSolucio::GrafSolucio(const std::vector<Coordinate>& nodes, const std::vector
 	crearMatriu(parelles_nodes, pesos);
 }
 
-void GrafSolucio::crearMatriu(const std::vector<std::vector<double>>& parelles,const std::vector<double>& pesos)
+void GrafSolucio::crearMatriu(const std::vector<std::vector<double>>& parelles, const std::vector<double>& pesos)
 {
 	m_matriuAdj.resize(m_numNodes);
 	for (size_t i = 0; i < m_numNodes; i++)
@@ -156,11 +164,14 @@ void GrafSolucio::inserirAresta(int posNode1, int posNode2, double pes)
 
 void GrafSolucio::afegirNode(const Coordinate& node)
 {
-	m_nodes.push_back(node);
-	m_matriuAdj.push_back(std::vector<double>(m_numNodes));
-	m_numNodes++;
-	for (int i = 0; i < m_numNodes; i++) 
-		m_matriuAdj[i].push_back(0);
+	if (!jaEstaAlVector)
+	{
+		m_nodes.push_back(node);
+		m_matriuAdj.push_back(std::vector<double>(m_numNodes));
+		m_numNodes++;
+		for (int i = 0; i < m_numNodes; i++)
+			m_matriuAdj[i].push_back(0);
+	}
 }
 
 void GrafSolucio::mostra()
