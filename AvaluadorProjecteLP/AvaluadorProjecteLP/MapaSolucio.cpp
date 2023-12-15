@@ -165,20 +165,20 @@ CamiBase* MapaSolucio::buscaCamiMesCurt(PuntDeInteresBase* desde, PuntDeInteresB
 	bola.nodeMesProper(desde->getCoord(), puntInici, &bola);
 	bola.nodeMesProper(a->getCoord(), puntFinal, &bola);
 
-	//Busquem el camí que té els dos punts
-	for (int i = 0; i < m_camins.size(); i++)
-	{
-		std::vector<Coordinate> coordenadesCami = m_camins[i]->getCamiCoords();
-		for (int cami = 0; cami < coordenadesCami.size(); cami++)
-		{
-			
-		}
-	}
+	////Busquem el camí que té els dos punts
+	//for (int i = 0; i < m_camins.size(); i++)
+	//{
+	//	std::vector<Coordinate> coordenadesCami = m_camins[i]->getCamiCoords();
+	//	for (int cami = 0; cami < coordenadesCami.size(); cami++)
+	//	{
+	//		
+	//	}
+	//}
 
 
 
 	//VERSIÓ 1 DIJKSTRA DES DEL GRAF SOLUCIÓ
-	/*std::vector<Coordinate> coordenadesCami;
+	std::vector<Coordinate> coordenadesCami;
 	std::stack<Coordinate> pilaCoordenadesCami;
 	graf.camiMesCurt(puntInici, puntFinal, pilaCoordenadesCami);
 	while (!pilaCoordenadesCami.empty())
@@ -187,10 +187,5 @@ CamiBase* MapaSolucio::buscaCamiMesCurt(PuntDeInteresBase* desde, PuntDeInteresB
 		pilaCoordenadesCami.pop();
 	}
 	CamiBase* cami = new CamiSolucio(coordenadesCami);
-	return cami;*/
-
-
-
-
-
+	return cami;
 }

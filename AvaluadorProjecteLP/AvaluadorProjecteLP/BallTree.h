@@ -77,7 +77,7 @@ public:
 	void postOrdre(std::vector<std::list<Coordinate>>& out);
 
 	// Destructor
-	~BallTree() = default;
+	~BallTree();
 
 private:
 	BallTree* m_root;

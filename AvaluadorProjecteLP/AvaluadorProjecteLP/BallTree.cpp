@@ -1,5 +1,29 @@
 ﻿#include "BallTree.h"
 #include <limits> //CUIDAO!!!!
+#include <stack>
+
+BallTree::~BallTree()
+{
+    if (m_right != nullptr)
+    {
+        delete m_right;
+        m_right = nullptr;
+    }
+
+    if (m_left != nullptr)
+    {
+        delete m_left;
+        m_left = nullptr;
+    }
+
+    m_root = nullptr;
+}
+
+
+//BallTree::~BallTree() 
+//{
+//    ;
+//}
 
 void BallTree::construirArbre(const std::vector<Coordinate>& coordenades)
 {
@@ -117,6 +141,7 @@ Coordinate BallTree::nodeMesProper(Coordinate targetQuery, Coordinate& Q, BallTr
             Da = Util::DistanciaHaversine(targetQuery, ball->m_left->m_pivot);
         if (ball->m_right != nullptr) //AIX� �S PER ESTAR SEGUR QUE ALG�N DELS DOS FILLS NO SIGUI NULLPTR
             Db = Util::DistanciaHaversine(targetQuery, ball->m_right->m_pivot);
+
         if (Da < Db)
         {
             if (ball->m_left != nullptr) //AIX� �S PER ESTAR SEGUR QUE ALG�N DELS DOS FILLS NO SIGUI NULLPTR
